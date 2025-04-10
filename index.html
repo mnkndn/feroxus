@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title>Feroxus</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script>
+      const mobileSrc = "./assets/video-mobile.mp4";
+      const desktopSrc = "./assets/video-desktop.mp4";
+
+      window.addEventListener("resize", (event) => {
+        const videoEl = document.querySelector("video");
+        const sourceEl = document.querySelector("video > source");
+        if (
+          event.target.innerWidth < 1300 &&
+          !sourceEl.src.endsWith("video-mobile.mp4")
+        ) {
+          sourceEl.src = mobileSrc;
+          videoEl.load();
+        } else if (
+          event.target.innerWidth >= 1300 &&
+          !sourceEl.src.endsWith("video-desktop.mp4")
+        ) {
+          sourceEl.src = desktopSrc;
+          videoEl.load();
+        }
+      });
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const videoEl = document.querySelector("video");
+        const sourceEl = document.querySelector("video > source");
+        if (window.innerWidth < 1300) {
+          sourceEl.src = mobileSrc;
+        } else {
+          sourceEl.src = desktopSrc;
+        }
+        videoEl.load();
+      });
+    </script>
+  </head>
+  <body>
+    <video
+      style="height: 100%; width: 100%; object-fit: cover"
+      autoplay
+      muted
+      loop
+    >
+      <source src="./assets/video-desktop.mp4" type="video/mp4" />
+    </video>
+  </body>
+</html>
